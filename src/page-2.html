@@ -19,10 +19,41 @@
         <h1 class="main-title">
           <span class="main-title-gradient">Welcome</span> to page 2
         </h1>
+
+        <div class="searchbox">
+          <form id="search-form" class="search-form">
+            <input
+              type="text"
+              name="query"
+              id="search-input"
+              autocomplete="off"
+              placeholder="Search images..."
+              required
+            />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+
+        <section class="loader-wrap" id="loader" aria-hidden="true">
+          <div class="loader-inner line-scale">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </section>
+
+        <section class="gallery-wrap">
+          <ul class="gallery" id="gallery"></ul>
+        </section>
+
         <load src="./partials/back-link.html" />
       </div>
     </main>
 
     <load src="./partials/footer.html" />
+
+    <script type="module" src="./js/page-2.js"></script>
   </body>
 </html>
