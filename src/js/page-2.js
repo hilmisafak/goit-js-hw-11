@@ -52,8 +52,7 @@ async function onSearch(e) {
 
   try {
     const url = `${BASE_URL}?${params.toString()}`;
-    const response = await axios.get(url);
-    const data = response.data;
+    const { data } = await axios.get(url);
 
     if (!data.hits || data.hits.length === 0) {
       iziToast.info({
@@ -83,4 +82,45 @@ async function onSearch(e) {
 
 function clearGallery() {
   refs.gallery.innerHTML = '';
+}
+
+function buildGalleryMarkup(items) {
+  return items
+    .map(
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => `
+<li class="gallery-item">
+  <a href="${largeImageURL}" class="card-link">
+    <img src="${webformatURL}" alt="${escapeHtml(tags)}" loading="lazy" />
+    <div class="card-stats">
+      <span><b>Likes</b> ${likes}</span>
+      <span><b>Views</b> ${views}</span>
+      <span><b>Comments</b> ${comments}</span>
+      <span><b>Downloads</b> ${downloads}</span>
+    </div>
+  </a>
+</li>`
+    )
+    .join('');
+}
+
+function escapeHtml(str) {
+  return str.replace(
+    /[&<>"']/g,
+    m =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      }[m])
+  );
 }
